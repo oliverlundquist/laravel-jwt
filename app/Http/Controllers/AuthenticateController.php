@@ -49,4 +49,21 @@ class AuthenticateController extends Controller
         // the token is valid and we have found the user via the sub claim
         return response()->json(compact('user'));
     }
+
+    public function refreshToken()
+    {
+        try {
+            $token = JWTAuth::parseToken()->refresh();
+
+        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+            return response()->json(['token_expired'], $e->getStatusCode());
+
+        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+
+            return response()->json(['token_invalid'], $e->getStatusCode());
+
+        }
+        return response()->json(compact('token'));
+    }
 }
