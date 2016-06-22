@@ -27,6 +27,8 @@ class AuthenticateController extends Controller
 
     public function getAuthenticatedUser()
     {
+        dd(JWTAuth::parseToken()->getPayload());
+
         try {
             if (! $user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
@@ -47,7 +49,10 @@ class AuthenticateController extends Controller
         }
 
         // the token is valid and we have found the user via the sub claim
-        return response()->json(compact('user'));
+        // return response()->json(compact('user'));
+        // $payload = JWTAuth::getPayload($request->input('token'));
+        // $rol = $payload->get('rol');
+        dd(JWTAuth::getPayload());
     }
 
     public function refreshToken()
