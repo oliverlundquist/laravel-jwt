@@ -16,5 +16,7 @@ Route::get('/', function () {
 });
 
 Route::post('/jwt', 'AuthenticateController@authenticate');
+
 Route::get('/jwt-user', 'AuthenticateController@getAuthenticatedUser');
+
 Route::get('/jwt-refresh-token', 'AuthenticateController@refreshToken');
